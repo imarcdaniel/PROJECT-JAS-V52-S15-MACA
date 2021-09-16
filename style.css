@@ -1,0 +1,58 @@
+.cell {
+   text-align: center;
+    font-size: 10px;
+    width:100px; height:100px;
+    display:inline-block;
+    position:relative;
+    margin: 5px;
+    border-radius:10%;
+    background-color:rgb(247, 247, 253);
+    cursor:pointer;
+}
+.bcell {
+        width:100px; height:224px;
+        font-size: 10px;
+        display:inline-block;
+        position:relative;
+        margin: 5px;
+        border-radius:10px;
+        
+        width:10%;
+        text-align:center;
+        align-self: flex-end;
+}
+main {
+    width: 100%;
+    margin: auto;
+}
+.player1 {
+    display: flex;
+    justify-content: left;
+    flex-direction: row-reverse;
+    background-color:rgb(76, 110, 206);
+    }
+.A-6-0 {
+        background-color:rgb(76, 110, 206);
+       background-color: rgb(255, 255, 255); 
+    }
+.B-13-0 {
+    background-color:rgb(23, 143, 73);   
+   
+    margin-top: -40vh;
+    }
+.player2 {
+    display: flex;
+    margin-left: 140px;
+    margin-block: -110px;
+    background-color:rgb(23, 143, 73);  
+}
+.player2 .cell {
+    background-color:rgb(198, 204, 201);      
+    }
+.player1 .cell {
+    background-color:rgb(241, 241, 241);
+}
+    /* div #6 {
+    height: px;
+ 
+} */

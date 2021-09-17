@@ -3,12 +3,13 @@
 /*----- app's state (variables) -----*/
 let playerTurn;
 let gameBoard;
-let gridOfPits = [2, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
+let gridOfPits = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 
 /*----- cached element references -----*/
 let boardDataEl = document.getElementById("mancala-board");
 let pits = Array.from(document.querySelectorAll("#mancala-board div .cell"));
 let messageEl = document.getElementById('message')
+let turn = document.getElementsByClassName("turn")
 
 /*----- event listeners -----*/
 boardDataEl.addEventListener("click", handleclick);
@@ -17,10 +18,10 @@ boardDataEl.addEventListener("click", handleclick);
 
 // Functions that load the game to blank state
 
-function initialize() {
+function init() {
   playerTurn = "A";
   // Object and arrays containing all positions
-  gridOfPits = [2, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
+  gridOfPits = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 }
 
 // Function creating a button to restart the game
@@ -29,11 +30,12 @@ function Creatbutton() {
   button.innerHTML = "Restart Game";
   let body = document.getElementsByTagName("h2")[0];
   body.appendChild(button);
+  button.onclick = init()
 }
 // function informing players  who's turn is it
 function CreatePlayerTurn() {
   let turn = document.createElement("div");
-  turn.innerHTML = "its Player :" + playerTurn + " to play";
+  // turn.innerHTML = "its Player : " + playerTurn + " to play";
   let body = document.getElementsByTagName("main")[0];
   body.appendChild(turn);
   turn.classList.add("turn");
@@ -41,7 +43,7 @@ function CreatePlayerTurn() {
 
 // autoload to render board-game ready
 
-initialize();
+
 Creatbutton();
 CreatePlayerTurn();
 
@@ -53,17 +55,21 @@ function handleclick(evt) {
   let clickedCell = parseClass(evt.target.className);
   console.log(clickedCell);
   if (clickedCell.bgA === 6 || clickedCell.bgA === 13) return;
-
+  
+  let player = clickedCell.plyr
+  console.log(player)
+  
   //distribute stones to the next pit
   stoneDistribution(clickedCell);
 
   // switch to other player
-  togglePlayer();
+  togglePlayer(player);
 
   // Make visible the event done by the click
   render();
-
+// verify if there is a winner
   checkWin()
+  document.querySelector(".turn").innerHTML = "its Player : " + player + " to play";
 }
 
 // give a clicked div a coordinate classname to decode position and coordinates of the click
@@ -77,12 +83,11 @@ function parseClass(className) {
 }
 
 // toggle the turn from one player to the other arrays by players
-function togglePlayer(clickedCell) {
-  if (playerTurn === "A") {
-    console.log(playerTurn);
-    playerTurn === "B";
+function togglePlayer(player) {
+  if (player === "A") {
+        player === "B";
   } else {
-    playerTurn === "C";
+    player === "A";
   }
 }
 
@@ -143,23 +148,7 @@ function stoneDistribution(clickedCell) {
 }
 
 
-// function checkWin (clickedCell) {
-//   let playerA=0
-//   let playerB=0 
-//   for( let i = 7; i < 13; i++) {
-//     playerB = gridOfPits[i]++ ;
-//     console.log("total pB", playerB); }
-
-//   for( let i = 0; i < 6; i++) {
-//     playerA = gridOfPits[i]++ ;
-//     console.log("total pA", playerA)}
-
-// if (playerA ===0 || playerB ===0) {
-//   winner = Math.max (gridOfPits[6], gridOfPits[13]);
-//      messageEl.textContent = (gridOfPits[6] > gridOfPits[13] ? 'A' : 'B') + " is the winner!"
-//    boardDataEl.removeEventListener('click', handleclick)
-// }
-// }
+// FUNCTION THAT EVALUATE WIN / LOSE
 
 function checkWin () {
 let gridforSplice =[...gridOfPits]
@@ -177,3 +166,5 @@ let totalPlayerA = gridplayerA.reduce(function(sum, value) {
   boardDataEl.removeEventListener('click', handleclick)
 }
 }
+
+init ()

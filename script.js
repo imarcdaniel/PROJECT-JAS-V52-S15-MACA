@@ -8,30 +8,65 @@ let gridOfPits = [2, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 /*----- cached element references -----*/
 let boardDataEl = document.getElementById("mancala-board");
 let pits = Array.from(document.querySelectorAll("#mancala-board div .cell"));
+let messageEl = document.getElementById('message')
+
 /*----- event listeners -----*/
 boardDataEl.addEventListener("click", handleclick);
+
 /*----- functions -----*/
+
+// Functions that load the game to blank state
+
 function initialize() {
   playerTurn = "A";
   // Object and arrays containing all positions
   gridOfPits = [2, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0];
 }
 
+// Function creating a button to restart the game
+function Creatbutton() {
+  let button = document.createElement("button");
+  button.innerHTML = "Restart Game";
+  let body = document.getElementsByTagName("h2")[0];
+  body.appendChild(button);
+}
+// function informing players  who's turn is it
+function CreatePlayerTurn() {
+  let turn = document.createElement("div");
+  turn.innerHTML = "its Player :" + playerTurn + " to play";
+  let body = document.getElementsByTagName("main")[0];
+  body.appendChild(turn);
+  turn.classList.add("turn");
+}
+
+// autoload to render board-game ready
+
+initialize();
+Creatbutton();
+CreatePlayerTurn();
+
+/*----- ACTIONS-----*/
+
 function handleclick(evt) {
   // gather position clicked
-    // transform in coordinates
+  // transform in coordinates
   let clickedCell = parseClass(evt.target.className);
   console.log(clickedCell);
-  if (clickedCell.bgA === 6 || clickedCell.bgA ===13) return
-  // check to see if the player can take those marbles
-  console.log(evt.target.id);
+  if (clickedCell.bgA === 6 || clickedCell.bgA === 13) return;
 
   //distribute stones to the next pit
   stoneDistribution(clickedCell);
+
+  // switch to other player
+  togglePlayer();
+
+  // Make visible the event done by the click
   render();
+
+  checkWin()
 }
 
-// give that div a coordinate classname decode
+// give a clicked div a coordinate classname to decode position and coordinates of the click
 function parseClass(className) {
   let gatheredClass = className.split("-");
   return {
@@ -40,126 +75,105 @@ function parseClass(className) {
     smA: parseInt(gatheredClass[2]),
   };
 }
-// Assign arrays by players
-function togglePlayer() {
+
+// toggle the turn from one player to the other arrays by players
+function togglePlayer(clickedCell) {
   if (playerTurn === "A") {
-    playerTurn = "B";
+    console.log(playerTurn);
+    playerTurn === "B";
   } else {
-    playerTurn = "A";
+    playerTurn === "C";
   }
 }
+
+// Renderthe board as the position of the arrays
+
 function render() {
   gridOfPits.forEach(function (mark, index) {
-      pits[index].innerHTML = mark;
+    pits[index].innerHTML = mark;
   });
 }
-// function validMove (clickedCell) {
-//   if ( playerTurn === playerPitsClicked && index >= 0 && index <= 5 && gridOfPits[index] > 0 ) 
-//   {  console.log('B valid move')} 
+//ICEBOX
+
+// *******To prevent the other player to play in certain pits.
+//function validMove (clickedCell) {
+//   if ( playerTurn === playerPitsClicked && index >= 0 && index <= 5 && gridOfPits[index] > 0 )
+//   {  console.log('B valid move')}
 //   return true;
 // }
 
-function checkWin() {}
-// Function to fill subsequent arrays progressively
-
 function stoneDistribution(clickedCell) {
-  // let clickedArray =  gridOfPits[clickedCell.bgA]
   let index = clickedCell.bgA;
   console.log("index", index);
-  // let nextArray = gridOfPits[clickedCell.bgA];
+
   let playerPitsClicked = clickedCell.plyr;
   let numberOfStones = gridOfPits[index];
-  console.log("nuombre de stones", numberOfStones);
 
-  let playerTurn = "A";
-  // gridOfPits[index] = []
+  gridOfPits[index] = 0;
+  gridOfPits.lenght = 14;
+  if (!index === 6 || !index === 13) return;
 
-  // let i
-  // { gridOfPits[i]= gridOfPits[i]+1 ;
-  //     console.log("donde", gridOfPits[i]);
-      gridOfPits[index] = 0;
-      gridOfPits.lenght =14
-      if (!index === 6 || !index === 13) return ;
-      
   // _____
   for (let i = numberOfStones; i > 0; i--) {
-    // gridOfPits[index] = 0;
-    // Increment by 1 for next pit
- 
+        // Increment by 1 for next pit
+
     if (index === 6 && playerPitsClicked !== playerTurn) {
       index = 7;
-        }
-    if (index === 13 ) {
-      index = 0; 
-          }
+    }
+    if (index === 13) {
+      index = 0;
+    }
 
-    // if (playerTurn !== playerPitsClicked) {
+    //****ICEBOX
+    //  if (playerTurn !== playerPitsClicked) {
     //   alert("not your turn");
     // }
-    if (index < 7) {
-      gridOfPits[1+index++] += 1;
-       console.log(index)
-      console.log("bactrak", gridOfPits);
 
+    if (index < 7) {
+      gridOfPits[1 + index++] += 1;
+      console.log(index);
+      console.log("bactrak", gridOfPits);
+      
     } else if (index <= 14 && index >= 7) {
-      // gridOfPits[Math.abs(index--)] += 1;
-      gridOfPits[1+index++] += 1;
+      gridOfPits[1 + index++] += 1;
 
       console.log("donde", gridOfPits);
     }
-
-    togglePlayer();
   }
 }
-// if (i===1 &&  {}
 
 
+// function checkWin (clickedCell) {
+//   let playerA=0
+//   let playerB=0 
+//   for( let i = 7; i < 13; i++) {
+//     playerB = gridOfPits[i]++ ;
+//     console.log("total pB", playerB); }
 
-// ________________________
-// for (let i = index; i <= (index + clickedElement);  i++)
-// {
-// { if (index = 6) {index = 7} else index +=1}
-// { if (i = 13) {i = 0} else index +=1}
-// { if (playerPitsClicked= playerTurn) {i < 6 ; console.log(playerTurn)} else return }
-// { if (playerPitsClicked!= playerTurn) {i > 7} else return}
-// console.log(playerTurn)
+//   for( let i = 0; i < 6; i++) {
+//     playerA = gridOfPits[i]++ ;
+//     console.log("total pA", playerA)}
 
-// gridOfPits[i]= gridOfPits[i]+1 ;
-// console.log("donde", gridOfPits[i]);
-// gridOfPits[index] = 0;
-
-// ________________________
-
+// if (playerA ===0 || playerB ===0) {
+//   winner = Math.max (gridOfPits[6], gridOfPits[13]);
+//      messageEl.textContent = (gridOfPits[6] > gridOfPits[13] ? 'A' : 'B') + " is the winner!"
+//    boardDataEl.removeEventListener('click', handleclick)
 // }
-// if (clickedArray.lenght > 0) return
+// }
 
-// // clickedArray.forEach(function(i) {
-// //     nextArray.push(gridOfPits[i])
-// //     // clickedArray.splice(i);
-// // })
+function checkWin () {
+let gridforSplice =[...gridOfPits]
+let gridplayerA=gridforSplice.slice(0, 6)
+let gridplayerB=gridforSplice.slice(7, 13)
+let totalPlayerA = gridplayerA.reduce(function(sum, value) {
+  return sum + value;
+  }, 0);   
+  let totalPlayerB = gridplayerB.reduce(function(sum, value) {
+    return sum + value;
+    }, 0);   
+  if (totalPlayerA=== 0 || totalPlayerB=== 0) { 
 
-// {for (let b = clickedCell.bgA; b < clickedArray.length; b++)
-
-//     { nextArray = gridOfPits[b];
-//         console.log(gridOfPits[b], "inside 1st loop") }
-
-//  { for(let i = 0; i < clickedArray.length; i++) {
-//     nextArray.push(clickedArray[i])
-//     console.log(nextArray,"inside the 2nd loop")
-
-//     clickedArray.splice(i, 1);
-//     i--;
-//  }
-//     console.log("new data of clicked array after loop:"+clickedArray)
-//     console.log(nextArray)
-//  }
-
-//  }
-// ?
-// Direction of movement of the stones (gather array length)
-// Stop distribution of stone (stop loop based on number of stone)
-// Increased capacity of the hole (array)
-
-// loop over the array.lenght of clicked cell
-// forEach element in the array, array.push 1
-// in each nex arra
+    messageEl.textContent = (gridOfPits[6] > gridOfPits[13] ? 'A' : 'B') + " is the winner!"
+  boardDataEl.removeEventListener('click', handleclick)
+}
+}

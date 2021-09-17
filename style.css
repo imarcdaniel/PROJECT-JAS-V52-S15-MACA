@@ -1,58 +1,109 @@
-.cell {
-   text-align: center;
-    font-size: 10px;
-    width:100px; height:100px;
-    display:inline-block;
-    position:relative;
-    margin: 5px;
-    border-radius:10%;
-    background-color:rgb(247, 247, 253);
-    cursor:pointer;
+#mancala-board {
+    height: 224px;
 }
-.bcell {
+h1 {
+  color: #6e10e9;
+  font-family: "Raleway", sans-serif;
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 72px;
+  margin: 0 0 24px;
+  text-align: left
+  text-transform: uppercase;
+}
+body {
+    background-color:#283344;
+    color: rgb(3, 3, 3);;
+}
+h2 {
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
+
+h3 {
+  position: relative;
+  text-transform: uppercase;
+  color: rgb(179, 31, 31);;
+}
+.cell {
+  text-align: center;
+  font-size: 20x;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  position: relative;
+  margin: 5px;
+  border-radius: 10%;
+  background-color: rgb(247, 247, 253);
+  cursor: pointer;
+}
+/* .b{
         width:100px; height:224px;
         font-size: 10px;
         display:inline-block;
         position:relative;
         margin: 5px;
         border-radius:10px;
-        
         width:10%;
         text-align:center;
         align-self: flex-end;
-}
+} */
 main {
-    width: 100%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
+  display: block;
 }
 .player1 {
-    display: flex;
-    justify-content: left;
-    flex-direction: row-reverse;
-    background-color:rgb(76, 110, 206);
-    }
+  display: flex;
+  justify-content: left;
+  flex-direction: row-reverse;
+ 
+}
 .A-6-0 {
-        background-color:rgb(76, 110, 206);
-       background-color: rgb(255, 255, 255); 
-    }
+    justify-content: center;
+  background-color: rgb(255, 255, 255);
+  width: 100px;
+  height: 224px;
+  font-size: 20px;
+  display: inline-block;
+  position: relative;
+  margin: 5px;
+  border-radius: 10px;
+  width: 10%;
+  text-align: center;
+  align-self: flex-end;
+}
 .B-13-0 {
-    background-color:rgb(23, 143, 73);   
-   
-    margin-top: -40vh;
-    }
+  background-color: rgb(23, 143, 73);
+  margin-top: -120px;
+  width: 100px;
+  height: 224px;
+  font-size: 20px;
+  display: inline-flexbox;
+}
 .player2 {
-    display: flex;
-    margin-left: 140px;
-    margin-block: -110px;
-    background-color:rgb(23, 143, 73);  
+  display: flex;
+  margin-left: 130px;
+  margin-block: -110px;
+  
+  margin-right: 12px;
 }
 .player2 .cell {
-    background-color:rgb(198, 204, 201);      
-    }
-.player1 .cell {
-    background-color:rgb(241, 241, 241);
+  background-color: rgb(131, 74, 112);
 }
-    /* div #6 {
-    height: px;
- 
-} */
+.player1 .cell {
+  background-color: rgb(241, 241, 241);
+}
+.turn {
+  top: -20px;
+   text-align: right;
+  text-transform: uppercase;
+  position: relative;
+    color: rgb(179, 31, 31);;
+}
+button {
+  position: absolute;
+  bottom: -100px;
+  left: 80px;
+}
